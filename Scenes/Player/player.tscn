@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://k4uxkobfktql"]
+
+[ext_resource type="Script" uid="uid://vbpyp8efptls" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
+[ext_resource type="Texture2D" uid="uid://brpu231x6v0e3" path="res://Assets/Oxford_Blue.png" id="1_uvnfx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3d8c"]
+size = Vector2(250, 250)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_a3d8c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_uvnfx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a3d8c")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
