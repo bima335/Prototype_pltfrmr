@@ -1,13 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://k4uxkobfktql"]
+[gd_scene load_steps=8 format=3 uid="uid://k4uxkobfktql"]
 
 [ext_resource type="Script" uid="uid://vbpyp8efptls" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://brpu231x6v0e3" path="res://Assets/Oxford_Blue.png" id="1_uvnfx"]
+[ext_resource type="PackedScene" uid="uid://p0natmd8tvxl" path="res://Scenes/Player/player_bullet.tscn" id="2_xpcdj"]
+[ext_resource type="Script" uid="uid://0f0q0f6et6re" path="res://Scripts/Player/hook_controller.gd" id="5_dd0ac"]
+
+[sub_resource type="GDScript" id="GDScript_mtuoh"]
+script/source = "extends Node2D
+@onready var rope := $RayCast2D
+var launched : bool = false
+var target : Vector2
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"hook\"):
+		launch()
+	if Input.is_action_just_released(\"hook\"):
+		off()
+	
+	if launched:
+		handle_hook()
+func launch():
+	if rope.is_colliding():
+		launched = true
+		target = rope.get_collision_point()
+
+func off():
+	launched = false
+
+func handle_hook():
+	pass
+"
+
+[sub_resource type="PackedScene" id="PackedScene_0u5uq"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Hook", "script", "Node2D", "RayCast2D"),
+"node_count": 2,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 2, 0, -1, 1, 1, 0, 0, 0, 0, 3, 3, -1, 0, 0),
+"variants": [SubResource("GDScript_mtuoh")],
+"version": 3
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a3d8c"]
 size = Vector2(250, 250)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_a3d8c")
+bullet_scene = ExtResource("2_xpcdj")
+hook_scene = SubResource("PackedScene_0u5uq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_uvnfx")
@@ -17,3 +60,12 @@ shape = SubResource("RectangleShape2D_a3d8c")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
+
+[node name="HookController" type="Node2D" parent="."]
+script = ExtResource("5_dd0ac")
+
+[node name="RayCast2D" type="RayCast2D" parent="HookController"]
+
+[node name="Line2D" type="Line2D" parent="HookController"]
+points = PackedVector2Array(0, 0, 0, 0)
+default_color = Color(0, 0.65098, 0, 1)
