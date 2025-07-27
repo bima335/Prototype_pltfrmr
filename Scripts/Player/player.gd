@@ -10,7 +10,7 @@ var dash_ready : bool = true
 
 @export var ACCELERATION : float = 0.1
 @export var DECCELERATION : float = 0.1
-@export var GRAVITY : int = 1100
+@export var GRAVITY : int = 1000
 @export var JUMP_SPEED : int = -270
 @export var SPEED : int = 100
 var click_position = Vector2()
