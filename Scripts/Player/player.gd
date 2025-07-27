@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
 var bullet_ready : bool = true
+var dash_ready : bool = true
+
 @export var cooldown_bullet : int = 1
+@export var cooldown_dash : float = .5
 @export var bullet_scene: PackedScene
 @export var hook_scene: PackedScene
 
 @export var ACCELERATION : float = 0.1
 @export var DECCELERATION : float = 0.1
-@export var GRAVITY : int = 1500
+@export var GRAVITY : int = 1100
 @export var JUMP_SPEED : int = -270
 @export var SPEED : int = 100
 var click_position = Vector2()
@@ -23,16 +26,20 @@ func _physics_process(delta: float) -> void:
 		bullet_ready = false
 		await get_tree().create_timer(cooldown_bullet).timeout
 		bullet_ready = true
-#Hook
-	if Input.is_action_just_pressed("hook"):
-		hook()
+
 #Move
 	var direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = lerp(velocity.x, SPEED * direction, ACCELERATION)
 	else:
 		velocity.x = lerp(velocity.x, SPEED * direction, DECCELERATION)
-	
+#Dash
+	if Input.is_action_just_pressed("dash") and dash_ready:
+		velocity.x = direction * 250
+		dash_ready = false
+		await get_tree().create_timer(cooldown_dash).timeout
+		dash_ready = true
+
 	velocity.y += GRAVITY*delta
 #Jump
 	if is_on_floor():
