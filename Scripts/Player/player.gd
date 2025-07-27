@@ -18,6 +18,7 @@ var target_position = Vector2()
 
 func _ready() -> void:
 	position.y = 500
+	$AnimatedSprite2D.play("Idle")
 
 func _physics_process(delta: float) -> void:
 #Shot
@@ -31,8 +32,12 @@ func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = lerp(velocity.x, SPEED * direction, ACCELERATION)
+		$AnimatedSprite2D.flip_h = direction < 0
+		if is_on_floor():
+			$AnimatedSprite2D.play("Run")
 	else:
 		velocity.x = lerp(velocity.x, SPEED * direction, DECCELERATION)
+		$AnimatedSprite2D.play("Idle")
 #Dash
 	if Input.is_action_just_pressed("dash") and dash_ready:
 		velocity.x = direction * 250
@@ -44,6 +49,7 @@ func _physics_process(delta: float) -> void:
 #Jump
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
+			$AnimatedSprite2D.play("Jump")
 			velocity.y = JUMP_SPEED
 			print(position)
 	move_and_slide()
