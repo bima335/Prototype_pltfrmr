@@ -25,28 +25,36 @@ func _physics_process(delta: float) -> void:
 #Shot
 	if Controller.is_die == false:
 		if Input.is_action_just_pressed("shot") and bullet_ready:
+			$ShotAudio.play()
 			shoot()
 			bullet_ready = false
-			await get_tree().create_timer(cooldown_bullet).timeout
-			bullet_ready = true
+			var timer = get_tree().create_timer(cooldown_bullet)
+			timer.timeout.connect(func():
+				if is_instance_valid(self):
+						bullet_ready = true
+				)
+			
 
 	#Move
 		var direction = Input.get_axis("left", "right")
 		if direction:
 			velocity.x = lerp(velocity.x, SPEED * direction, ACCELERATION)
 			$AnimatedSprite2D.flip_h = direction < 0
-			if is_on_floor():
+			if is_on_floor() and dash_ready == true:
 				$AnimatedSprite2D.play("Run")
 		else:
 			velocity.x = lerp(velocity.x, SPEED * direction, DECCELERATION)
 			$AnimatedSprite2D.play("Idle")
 	#Dash
 		if Input.is_action_just_pressed("dash") and dash_ready:
-			velocity.x = direction * 250
+			$AnimatedSprite2D.play("Dash")
+			velocity.x = direction * 300
+			$DashAudio.play()
 			dash_ready = false
 			await get_tree().create_timer(cooldown_dash).timeout
 			dash_ready = true
-
+			
+	
 		velocity.y += GRAVITY*delta
 	#Jump
 		if is_on_floor():
@@ -54,12 +62,11 @@ func _physics_process(delta: float) -> void:
 				$AnimatedSprite2D.play("Jump")
 				velocity.y = JUMP_SPEED
 				print(Controller.is_die)
+				$JumpAudio.play()
 	else :
 		velocity.x = 0
 		velocity.y += GRAVITY*delta
 		$AnimatedSprite2D.play("Die")
-		await get_tree().create_timer(2).timeout
-		get_tree().paused
 	move_and_slide()
 
 func shoot():

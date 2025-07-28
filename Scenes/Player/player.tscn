@@ -1,8 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://k4uxkobfktql"]
+[gd_scene load_steps=25 format=3 uid="uid://k4uxkobfktql"]
 
 [ext_resource type="Script" uid="uid://vbpyp8efptls" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="PackedScene" uid="uid://p0natmd8tvxl" path="res://Scenes/Player/player_bullet.tscn" id="2_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://bor4ot4s7ocpc" path="res://Assets/monochrome_tilemap_transparent_packed.png" id="3_xpcdj"]
+[ext_resource type="AudioStream" uid="uid://cx4g7ioijilvw" path="res://Assets/Sounds/Retro Jump Classic 08.wav" id="4_mtuoh"]
+[ext_resource type="AudioStream" uid="uid://5kh1fb5df6ol" path="res://Assets/Sounds/Retro Jump Simple B 05.wav" id="5_htcer"]
+[ext_resource type="AudioStream" uid="uid://h8h124edf8b7" path="res://Assets/Sounds/Retro Weapon Gun LoFi 03.wav" id="6_dd0ac"]
 
 [sub_resource type="GDScript" id="GDScript_mtuoh"]
 script/source = "extends Node2D
@@ -42,6 +45,14 @@ _bundled = {
 "variants": [SubResource("GDScript_mtuoh")],
 "version": 3
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dey5f"]
+atlas = ExtResource("3_xpcdj")
+region = Rect2(48, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5xpd"]
+atlas = ExtResource("3_xpcdj")
+region = Rect2(48, 240, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_74mp2"]
 atlas = ExtResource("3_xpcdj")
@@ -93,6 +104,17 @@ region = Rect2(48, 192, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0u5uq"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dey5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5xpd")
+}],
+"loop": true,
+"name": &"Dash",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_74mp2")
@@ -165,9 +187,18 @@ zoom = Vector2(4, 4)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(20, 20)
 sprite_frames = SubResource("SpriteFrames_0u5uq")
-animation = &"Die"
-frame_progress = 0.420235
+animation = &"Dash"
+frame_progress = 0.169329
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 47.25)
 shape = SubResource("RectangleShape2D_xpcdj")
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mtuoh")
+
+[node name="DashAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_htcer")
+
+[node name="ShotAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_dd0ac")

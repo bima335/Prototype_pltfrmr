@@ -18,7 +18,7 @@ func _ready() -> void:
 	switch_scene()
 
 func switch_scene():
-	get_tree().change_scene_to_packed(current_level)
+	get_tree().change_scene_to_packed.call_deferred(current_level)
 
 func toggle_pause():
 	if is_die:

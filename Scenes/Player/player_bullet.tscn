@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://p0natmd8tvxl"]
+[gd_scene load_steps=5 format=3 uid="uid://p0natmd8tvxl"]
 
 [ext_resource type="Script" uid="uid://5gqn5306x7qw" path="res://Scripts/Player/player_bullet.gd" id="1_jf7v0"]
 [ext_resource type="Texture2D" uid="uid://bu8fgxksw3duk" path="res://Assets/turretBase_small.png" id="2_lsb28"]
+[ext_resource type="AudioStream" uid="uid://06uc3r68lrhq" path="res://Assets/Sounds/Retro Impact Punch 07.wav" id="3_lsb28"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xbwfy"]
 radius = 13.0
@@ -19,6 +20,9 @@ texture = ExtResource("2_lsb28")
 shape = SubResource("CircleShape2D_xbwfy")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[node name="HitAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lsb28")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

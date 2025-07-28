@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bnaxeggu7pkvf"]
+[gd_scene load_steps=18 format=3 uid="uid://bnaxeggu7pkvf"]
 
 [ext_resource type="Script" uid="uid://b0ghcee4sd8y1" path="res://Scripts/Area/area_1.gd" id="1_k1ww6"]
 [ext_resource type="Texture2D" uid="uid://cws3s48pqqypn" path="res://Assets/monochrome_tilemap_packed.png" id="1_uxfmf"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://k4uxkobfktql" path="res://Scenes/Player/player.tscn" id="2_stscf"]
 [ext_resource type="Script" uid="uid://d075b5qq60mwb" path="res://Scripts/Mobs/enemy.gd" id="4_plf6x"]
 [ext_resource type="PackedScene" uid="uid://lo8omo5dx6x4" path="res://Scenes/Mobs/enemy_bullet.tscn" id="5_twemq"]
+[ext_resource type="PackedScene" uid="uid://bmyrmp4iob0t7" path="res://Scenes/Area/death_area.tscn" id="7_q4pu4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_stscf"]
 texture = ExtResource("1_uxfmf")
@@ -1292,6 +1293,14 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
 shape = SubResource("CircleShape2D_d887p")
+
+[node name="Death_area" parent="." instance=ExtResource("7_q4pu4")]
+position = Vector2(224, 679)
+scale = Vector2(1.5, 1.5)
+
+[node name="Death_area2" parent="." instance=ExtResource("7_q4pu4")]
+position = Vector2(328, 651)
+scale = Vector2(2.5, 1)
 
 [connection signal="body_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_exited"]
