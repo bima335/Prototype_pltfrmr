@@ -6,6 +6,9 @@ extends CharacterBody2D
 var bullet_ready : bool = true
 var can_attack : bool = false
 
+func _ready() -> void:
+	add_to_group("pausable")
+
 func _process(delta: float) -> void:
 	$AnimatedSprite2D.play("default")
 	
@@ -19,7 +22,8 @@ func _process(delta: float) -> void:
 
 func shoot():
 	var bullet = bullet_scene.instantiate()
-	bullet.position = global_position
+	bullet.position.x = global_position.x -5
+	bullet.position.y = global_position.y + 7
 	bullet.direction = ($"../Player".position - global_position).normalized()
 	get_tree().current_scene.call_deferred("add_child", bullet)
 

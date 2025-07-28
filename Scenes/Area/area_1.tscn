@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bnaxeggu7pkvf"]
+[gd_scene load_steps=17 format=3 uid="uid://bnaxeggu7pkvf"]
 
+[ext_resource type="Script" uid="uid://b0ghcee4sd8y1" path="res://Scripts/Area/area_1.gd" id="1_k1ww6"]
 [ext_resource type="Texture2D" uid="uid://cws3s48pqqypn" path="res://Assets/monochrome_tilemap_packed.png" id="1_uxfmf"]
 [ext_resource type="Texture2D" uid="uid://bor4ot4s7ocpc" path="res://Assets/monochrome_tilemap_transparent_packed.png" id="2_d887p"]
 [ext_resource type="PackedScene" uid="uid://k4uxkobfktql" path="res://Scenes/Player/player.tscn" id="2_stscf"]
 [ext_resource type="Script" uid="uid://d075b5qq60mwb" path="res://Scripts/Mobs/enemy.gd" id="4_plf6x"]
-[ext_resource type="PackedScene" uid="uid://p0natmd8tvxl" path="res://Scenes/Player/player_bullet.tscn" id="5_twemq"]
+[ext_resource type="PackedScene" uid="uid://lo8omo5dx6x4" path="res://Scenes/Mobs/enemy_bullet.tscn" id="5_twemq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_stscf"]
 texture = ExtResource("1_uxfmf")
@@ -930,6 +931,7 @@ texture = ExtResource("2_d887p")
 17:5/0 = 0
 18:5/0 = 0
 19:5/0 = 0
+19:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:6/0 = 0
 1:6/0 = 0
 2:6/0 = 0
@@ -1207,6 +1209,8 @@ texture = ExtResource("2_d887p")
 17:19/0 = 0
 18:19/0 = 0
 19:19/0 = 0
+16:6/0 = 0
+11:6/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_d887p"]
 physics_layer_0/collision_layer = 3
@@ -1257,6 +1261,7 @@ size = Vector2(10, 12)
 radius = 93.9628
 
 [node name="Area1" type="Node2D"]
+script = ExtResource("1_k1ww6")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_d887p")

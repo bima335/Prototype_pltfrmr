@@ -3,6 +3,9 @@ extends Area2D
 var direction = Vector2.RIGHT
 var speed : int = 200
 
+func _ready() -> void:
+	add_to_group("pausable")
+
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
 
