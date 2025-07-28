@@ -1,5 +1,6 @@
 extends Area2D
 
+
 var direction := Vector2.RIGHT
 @export var BULLET_SPEED := 200
 
@@ -11,8 +12,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		Controller.is_die = true
-		Controller.toggle_pause()
+		Controller.Player_hitted.emit(20)
 	queue_free()
 
 

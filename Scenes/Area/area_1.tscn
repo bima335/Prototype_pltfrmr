@@ -1274,6 +1274,7 @@ scale = Vector2(0.035, 0.035)
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
 position = Vector2(519, 543)
+collision_layer = 32
 collision_mask = 0
 script = ExtResource("4_plf6x")
 bullet_scene = ExtResource("5_twemq")

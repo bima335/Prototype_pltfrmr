@@ -4,3 +4,6 @@
 
 [node name="Controller" type="Node"]
 script = ExtResource("1_aa72r")
+
+[connection signal="Enemy_hitted" from="." to="." method="_on_enemy_hitted"]
+[connection signal="Player_hitted" from="." to="." method="_on_player_hitted"]
