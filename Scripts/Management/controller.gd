@@ -6,7 +6,8 @@ signal Enemy_hitted(hp)
 const player = preload("res://Scenes/Player/player.tscn")
 const area1 = preload("res://Scenes/Area/area_1.tscn")
 
-@export var Player_hp = 100
+@export var Player_max_hp = 100
+var Player_current_hp = Player_max_hp
 
 var is_die = false
 var wait_time := 0
@@ -36,7 +37,7 @@ func apply_damage(enemy_node: Node, damage: int) -> void:
 
 
 func _on_player_hitted(damage: Variant) -> void:
-	Player_hp = Player_hp - damage
-	if Player_hp <= 0:
+	Player_current_hp = Player_current_hp - damage
+	if Player_current_hp <= 0:
 		is_die = true
 		toggle_pause()

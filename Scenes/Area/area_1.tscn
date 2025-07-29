@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://bnaxeggu7pkvf"]
+[gd_scene load_steps=20 format=3 uid="uid://bnaxeggu7pkvf"]
 
 [ext_resource type="Script" uid="uid://b0ghcee4sd8y1" path="res://Scripts/Area/area_1.gd" id="1_k1ww6"]
 [ext_resource type="Texture2D" uid="uid://cws3s48pqqypn" path="res://Assets/monochrome_tilemap_packed.png" id="1_uxfmf"]
+[ext_resource type="PackedScene" uid="uid://c0newl871h53r" path="res://Scenes/UI/hud.tscn" id="2_bsqwo"]
 [ext_resource type="Texture2D" uid="uid://bor4ot4s7ocpc" path="res://Assets/monochrome_tilemap_transparent_packed.png" id="2_d887p"]
 [ext_resource type="PackedScene" uid="uid://k4uxkobfktql" path="res://Scenes/Player/player.tscn" id="2_stscf"]
 [ext_resource type="Script" uid="uid://d075b5qq60mwb" path="res://Scripts/Mobs/enemy.gd" id="4_plf6x"]
 [ext_resource type="PackedScene" uid="uid://lo8omo5dx6x4" path="res://Scenes/Mobs/enemy_bullet.tscn" id="5_twemq"]
 [ext_resource type="PackedScene" uid="uid://bmyrmp4iob0t7" path="res://Scenes/Area/death_area.tscn" id="7_q4pu4"]
+[ext_resource type="PackedScene" uid="uid://mmlmbqy2l52f" path="res://Scenes/Mobs/crusher.tscn" id="9_v0wvy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_stscf"]
 texture = ExtResource("1_uxfmf")
@@ -1264,10 +1266,12 @@ radius = 93.9628
 [node name="Area1" type="Node2D"]
 script = ExtResource("1_k1ww6")
 
+[node name="HUD" parent="." instance=ExtResource("2_bsqwo")]
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_d887p")
 format = 2
-layer_0/tile_data = PackedInt32Array(2555909, 524289, 9, 2490373, 524289, 9, 2424837, 524289, 9, 2359301, 524289, 9, 2293765, 524289, 9, 2228229, 524289, 9, 2162693, 524289, 9, 2097157, 524289, 9, 2031621, 524289, 9, 1966085, 524289, 9, 2555910, 196609, 4, 2555911, 196609, 4, 2555912, 196609, 4, 2555913, 196609, 4, 2555914, 196609, 4, 2555915, 196609, 4, 2555916, 196609, 4, 2555919, 196609, 4, 2555920, 196609, 4, 2555921, 196609, 4, 2424843, 327682, 9, 2490379, 327682, 10, 2621452, 851969, 6, 2686988, 851969, 6, 2752524, 851969, 6, 2818060, 851969, 6, 2621455, 851969, 6, 2686991, 851969, 6, 2752527, 851969, 6, 2818063, 851969, 6, 2555922, 262145, 4, 2555926, 262145, 4, 2555927, 262145, 4, 2490392, 262145, 4, 2424857, 262145, 4, 2424858, 262145, 4, 2424859, 262145, 4, 2424860, 262145, 4, 2424861, 262145, 4, 2424862, 262145, 4, 2555928, 720897, 6, 2555929, 720897, 6, 2555930, 720897, 6, 2555931, 720897, 6, 2555932, 720897, 6, 2555933, 720897, 6, 2555934, 720897, 6, 2490398, 720897, 6, 2490397, 720897, 6, 2490396, 720897, 6, 2490395, 720897, 6, 2490394, 720897, 6, 2490393, 720897, 6)
+layer_0/tile_data = PackedInt32Array(2555909, 524289, 9, 2490373, 524289, 9, 2424837, 524289, 9, 2359301, 524289, 9, 2293765, 524289, 9, 2228229, 524289, 9, 2162693, 524289, 9, 2097157, 524289, 9, 2031621, 524289, 9, 1966085, 524289, 9, 2555910, 196609, 4, 2555911, 196609, 4, 2555912, 196609, 4, 2555913, 196609, 4, 2555914, 196609, 4, 2555915, 196609, 4, 2555916, 196609, 4, 2555919, 196609, 4, 2555920, 196609, 4, 2555921, 196609, 4, 2424843, 327682, 9, 2490379, 327682, 10, 2621452, 851969, 6, 2686988, 851969, 6, 2752524, 851969, 6, 2818060, 851969, 6, 2621455, 851969, 6, 2686991, 851969, 6, 2752527, 851969, 6, 2818063, 851969, 6, 2555922, 262145, 4, 2555926, 262145, 4, 2555927, 262145, 4, 2490392, 262145, 4, 2424857, 262145, 4, 2424858, 262145, 4, 2424859, 262145, 4, 2424860, 262145, 4, 2424861, 262145, 4, 2424862, 262145, 4, 2555928, 720897, 6, 2555929, 720897, 6, 2555930, 720897, 6, 2555931, 720897, 6, 2555932, 720897, 6, 2555933, 720897, 6, 2555934, 720897, 6, 2490398, 720897, 6, 2490397, 720897, 6, 2490396, 720897, 6, 2490395, 720897, 6, 2490394, 720897, 6, 2490393, 720897, 6, 2424863, 262145, 4, 2424864, 262145, 4, 2424865, 262145, 4, 2424866, 262145, 4, 2424867, 262145, 4, 2424868, 262145, 4, 2424869, 262145, 4, 2424870, 262145, 4, 2424871, 262145, 4, 2424872, 262145, 4, 2424873, 262145, 4, 2424874, 262145, 4, 2555935, 720897, 6, 2555936, 720897, 6, 2555937, 720897, 6, 2555938, 720897, 6, 2555939, 720897, 6, 2555940, 720897, 6, 2555941, 720897, 6, 2555942, 720897, 6, 2555943, 720897, 6, 2555944, 720897, 6, 2555945, 720897, 6, 2555946, 720897, 6, 2490410, 720897, 6, 2490409, 720897, 6, 2490408, 720897, 6, 2490407, 720897, 6, 2490406, 720897, 6, 2490405, 720897, 6, 2490404, 720897, 6, 2490403, 720897, 6, 2490402, 720897, 6, 2490401, 720897, 6, 2490400, 720897, 6, 2490399, 720897, 6)
 
 [node name="Player" parent="." instance=ExtResource("2_stscf")]
 position = Vector2(112, 619)
@@ -1301,6 +1305,9 @@ scale = Vector2(1.5, 1.5)
 [node name="Death_area2" parent="." instance=ExtResource("7_q4pu4")]
 position = Vector2(328, 651)
 scale = Vector2(2.5, 1)
+
+[node name="Crusher" parent="." instance=ExtResource("9_v0wvy")]
+position = Vector2(653, 584)
 
 [connection signal="body_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_exited"]
