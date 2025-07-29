@@ -7,4 +7,5 @@ func take_damage(damage:int) -> void:
 	print("hit, sisa", hp)
 	
 	if hp <= 0:
-		queue_free()
+		set_physics_process(false)
+		call_deferred("queue_free")
