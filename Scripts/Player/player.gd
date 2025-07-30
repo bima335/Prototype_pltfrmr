@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var bullet_ready : bool = true
+var bullet_ready = true
 var dash_ready : bool = true
 
 @export var cooldown_bullet : int = 1
@@ -17,7 +17,7 @@ var click_position = Vector2()
 var target_position = Vector2()
 
 func _ready() -> void:
-	position.y = 500
+	position.y = Controller.Player_current_position.y + 500
 	$AnimatedSprite2D.play("Idle")
 	add_to_group("pausable")
 
@@ -27,10 +27,12 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("shot") and bullet_ready:
 			$ShotAudio.play()
 			shoot()
+			var current_bullet = Controller.Player_current_bullet
 			bullet_ready = false
 			var timer = get_tree().create_timer(cooldown_bullet)
 			timer.timeout.connect(func():
 				if is_instance_valid(self):
+					if current_bullet > 0:
 						bullet_ready = true
 				)
 			
@@ -61,7 +63,6 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("jump"):
 				$AnimatedSprite2D.play("Jump")
 				velocity.y = JUMP_SPEED
-				print(Controller.is_die)
 				$JumpAudio.play()
 	else :
 		velocity.x = 0
@@ -70,6 +71,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func shoot():
+	Controller.Bullet_change.emit("used", 1)
 	var bullet = bullet_scene.instantiate()
 	bullet.position = global_position
 	bullet.direction = (get_global_mouse_position() - global_position).normalized()

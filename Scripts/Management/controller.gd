@@ -2,12 +2,18 @@ extends Node
 
 signal Player_hitted(damage)
 signal Enemy_hitted(hp)
+signal Bullet_change(state, amount)
 
 const player = preload("res://Scenes/Player/player.tscn")
 const area1 = preload("res://Scenes/Area/area_1.tscn")
 
 @export var Player_max_hp = 100
 var Player_current_hp = Player_max_hp
+@export var Player_max_bullet = 3
+var Player_current_bullet = Player_max_bullet
+var Bullet_ready := true
+
+var Player_current_position = player.instantiate().position
 
 var is_die = false
 var wait_time := 0
@@ -20,6 +26,12 @@ func _ready() -> void:
 
 func switch_scene():
 	get_tree().change_scene_to_packed.call_deferred(current_level)
+
+func die_and_reset():
+	is_die = false
+	Player_current_hp = Player_max_hp
+	Player_current_bullet = Player_max_bullet
+	get_tree().reload_current_scene()
 
 func toggle_pause():
 	if is_die:
@@ -41,3 +53,13 @@ func _on_player_hitted(damage: Variant) -> void:
 	if Player_current_hp <= 0:
 		is_die = true
 		toggle_pause()
+
+
+func _on_bullet_change(state, amount: Variant) -> void:
+	if state == "used":
+		Player_current_bullet -= amount
+	elif state == "added":
+		if Player_current_bullet < Player_max_bullet:
+			Player_current_bullet += amount
+		else:
+			print("Bullet full")

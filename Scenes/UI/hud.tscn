@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0newl871h53r"]
 
-[ext_resource type="Script" uid="uid://bi3uysjp444ee" path="res://Scenes/UI/hud.gd" id="1_sprlj"]
+[ext_resource type="Script" uid="uid://b5ko6gwlgmkwm" path="res://Scripts/UI/hud.gd" id="1_sprlj"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_sprlj")
@@ -16,3 +16,13 @@ layout_mode = 1
 offset_right = 63.0
 offset_bottom = 23.0
 text = "HP:"
+
+[node name="Bullet" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Bullet:"
