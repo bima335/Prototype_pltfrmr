@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bnaxeggu7pkvf"]
+[gd_scene load_steps=21 format=3 uid="uid://bnaxeggu7pkvf"]
 
 [ext_resource type="Script" uid="uid://b0ghcee4sd8y1" path="res://Scripts/Area/area_1.gd" id="1_k1ww6"]
 [ext_resource type="Texture2D" uid="uid://cws3s48pqqypn" path="res://Assets/monochrome_tilemap_packed.png" id="1_uxfmf"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://lo8omo5dx6x4" path="res://Scenes/Mobs/enemy_bullet.tscn" id="5_twemq"]
 [ext_resource type="PackedScene" uid="uid://bmyrmp4iob0t7" path="res://Scenes/Area/death_area.tscn" id="7_q4pu4"]
 [ext_resource type="PackedScene" uid="uid://mmlmbqy2l52f" path="res://Scenes/Mobs/crusher.tscn" id="9_v0wvy"]
+[ext_resource type="PackedScene" uid="uid://cnq41aadxkicw" path="res://Scenes/Management/checkpoint.tscn" id="10_8lnsc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_stscf"]
 texture = ExtResource("1_uxfmf")
@@ -1308,6 +1309,9 @@ scale = Vector2(2.5, 1)
 
 [node name="Crusher" parent="." instance=ExtResource("9_v0wvy")]
 position = Vector2(653, 584)
+
+[node name="Checkpoint" parent="." instance=ExtResource("10_8lnsc")]
+position = Vector2(285, 535)
 
 [connection signal="body_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_exited"]

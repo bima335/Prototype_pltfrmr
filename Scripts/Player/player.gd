@@ -17,7 +17,8 @@ var click_position = Vector2()
 var target_position = Vector2()
 
 func _ready() -> void:
-	position.y = Controller.Player_current_position.y + 500
+	position.x = Controller.Player_current_x_position
+	position.y = Controller.Player_current_y_position
 	$AnimatedSprite2D.play("Idle")
 	add_to_group("pausable")
 
