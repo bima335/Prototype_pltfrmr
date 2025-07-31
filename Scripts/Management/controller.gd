@@ -29,6 +29,10 @@ func _ready() -> void:
 	add_to_group("pausable")
 	switch_scene()
 
+func _process(delta: float) -> void:
+	if is_die:
+		die_and_reset()
+
 func switch_scene():
 	get_tree().change_scene_to_packed.call_deferred(current_level)
 

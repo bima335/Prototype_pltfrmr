@@ -1,4 +1,4 @@
-extends "res://Scripts/Management/enemy_hit.gd"
+extends EnemyHit
 
 @export var bullet_scene : PackedScene
 @export var cooldown_bullet : float = 1.0
@@ -12,7 +12,7 @@ func _ready() -> void:
 	add_to_group("enemies")
 	hp = 30
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	$AnimatedSprite2D.play("default")
 	
 	if can_attack:

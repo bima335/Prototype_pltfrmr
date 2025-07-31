@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name EnemyHit extends CharacterBody2D
 
 var hp : int
 
