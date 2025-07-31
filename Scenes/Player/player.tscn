@@ -1,50 +1,13 @@
 [gd_scene load_steps=25 format=3 uid="uid://k4uxkobfktql"]
 
-[ext_resource type="Script" uid="uid://vbpyp8efptls" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
-[ext_resource type="PackedScene" uid="uid://p0natmd8tvxl" path="res://Scenes/Player/player_bullet.tscn" id="2_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://bor4ot4s7ocpc" path="res://Assets/monochrome_tilemap_transparent_packed.png" id="3_xpcdj"]
 [ext_resource type="AudioStream" uid="uid://cx4g7ioijilvw" path="res://Assets/Sounds/Retro Jump Classic 08.wav" id="4_mtuoh"]
 [ext_resource type="AudioStream" uid="uid://5kh1fb5df6ol" path="res://Assets/Sounds/Retro Jump Simple B 05.wav" id="5_htcer"]
+[ext_resource type="Script" uid="uid://tw0etfien68x" path="res://Scripts/State Machine/state_machine.gd" id="5_jlvik"]
 [ext_resource type="AudioStream" uid="uid://h8h124edf8b7" path="res://Assets/Sounds/Retro Weapon Gun LoFi 03.wav" id="6_dd0ac"]
-
-[sub_resource type="GDScript" id="GDScript_mtuoh"]
-script/source = "extends Node2D
-@onready var rope := $RayCast2D
-var launched : bool = false
-var target : Vector2
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed(\"hook\"):
-		launch()
-	if Input.is_action_just_released(\"hook\"):
-		off()
-	
-	if launched:
-		handle_hook()
-func launch():
-	if rope.is_colliding():
-		launched = true
-		target = rope.get_collision_point()
-
-func off():
-	launched = false
-
-func handle_hook():
-	pass
-"
-
-[sub_resource type="PackedScene" id="PackedScene_0u5uq"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("Hook", "script", "Node2D", "RayCast2D"),
-"node_count": 2,
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 2, 0, -1, 1, 1, 0, 0, 0, 0, 3, 3, -1, 0, 0),
-"variants": [SubResource("GDScript_mtuoh")],
-"version": 3
-}
+[ext_resource type="Script" uid="uid://ddsrdqdfb52rq" path="res://Scripts/Player/idle_state.gd" id="6_gk6dx"]
+[ext_resource type="Script" uid="uid://f2y4mefju6ew" path="res://Scripts/Player/jump_scene.gd" id="7_jhyir"]
+[ext_resource type="Script" uid="uid://dv8ango3tk3jf" path="res://Scripts/Player/walk_scene.gd" id="8_74mp2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dey5f"]
 atlas = ExtResource("3_xpcdj")
@@ -177,9 +140,6 @@ size = Vector2(243, 231.5)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 13
-script = ExtResource("1_a3d8c")
-bullet_scene = ExtResource("2_xpcdj")
-hook_scene = SubResource("PackedScene_0u5uq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
@@ -202,3 +162,20 @@ stream = ExtResource("5_htcer")
 
 [node name="ShotAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_dd0ac")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_jlvik")
+initial_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://tw0etfien68x"
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("6_gk6dx")
+metadata/_custom_type_script = "uid://ddsrdqdfb52rq"
+
+[node name="JumpState" type="Node" parent="StateMachine"]
+script = ExtResource("7_jhyir")
+metadata/_custom_type_script = "uid://f2y4mefju6ew"
+
+[node name="WalkState" type="Node" parent="StateMachine"]
+script = ExtResource("8_74mp2")
+metadata/_custom_type_script = "uid://dv8ango3tk3jf"

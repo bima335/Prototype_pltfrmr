@@ -31,6 +31,7 @@ func _physics_process(delta: float) -> void:
 					velocity.x = -speed
 			else :
 				velocity.x = 0
+				can_attack = false
 		else:
 			is_moving = false
 	else:
@@ -38,7 +39,8 @@ func _physics_process(delta: float) -> void:
 	if collide:
 		if collide.get_collider().name == "Player":
 			towards = "stop"
-			Controller.is_die = true
+			can_attack = false
+			#Controller.is_die = true
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
@@ -52,3 +54,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		idle = false
 	else:
 		return
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		idle = true
+		await get_tree().create_timer(2).timeout
+		$AnimatedSprite2D.play("Idle")
+		
