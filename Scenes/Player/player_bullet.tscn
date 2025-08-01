@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://p0natmd8tvxl"]
 
-[ext_resource type="Script" uid="uid://5gqn5306x7qw" path="res://Scripts/Player/player_bullet.gd" id="1_jf7v0"]
+[ext_resource type="Script" path="res://Scripts/Player/player_bullet.gd" id="1_jf7v0"]
 [ext_resource type="Texture2D" uid="uid://bu8fgxksw3duk" path="res://Assets/turretBase_small.png" id="2_lsb28"]
 [ext_resource type="AudioStream" uid="uid://06uc3r68lrhq" path="res://Assets/Sounds/Retro Impact Punch 07.wav" id="3_lsb28"]
 
